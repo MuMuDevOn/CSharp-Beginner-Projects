@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Question 7-Student Grade Tracker", "Question 7-Student Grade Tracker.csproj", "{24D19A46-05DC-421A-8E58-7113FBD72432}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24D19A46-05DC-421A-8E58-7113FBD72432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24D19A46-05DC-421A-8E58-7113FBD72432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24D19A46-05DC-421A-8E58-7113FBD72432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24D19A46-05DC-421A-8E58-7113FBD72432}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BDC4D6D5-DBC2-4E6A-A55F-E3698F8E8D7B}
+	EndGlobalSection
+EndGlobal
