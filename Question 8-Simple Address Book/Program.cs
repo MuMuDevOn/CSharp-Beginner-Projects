@@ -30,7 +30,8 @@ namespace Question_8_Simple_Address_Book
                 Console.WriteLine("1.Insert address info");
                 Console.WriteLine("2.Display information");
                 Console.WriteLine("3.Update information");
-                Console.WriteLine("4.Exit");
+                Console.WriteLine("4.Remove information");
+                Console.WriteLine("5.Exit");
                 Console.WriteLine("Type down infomation ");
 
                 bool valid = int.TryParse(Console.ReadLine(), out choice);
@@ -49,15 +50,21 @@ namespace Question_8_Simple_Address_Book
 
                     case 1:
 
-                        addressbook.InsertInput();
+                        addressbook.InsertInput(AddressInput);
                         break;
                     case 2:
-                        addressbook.Display(AddressInput,path);
+                        addressbook.Display(AddressInput);
                         break;
                     case 3:
                         addressbook.UpdateEmail(AddressInput);
                         break;
-                   
+                    case 4:
+                        addressbook.RemoveEmail(AddressInput);
+                        break;
+                    case 5:
+                        Console.WriteLine("==You have successfully exited the program");
+                        break;
+
                     default:
 
                         Console.WriteLine("You have entered invalid input");
@@ -87,7 +94,7 @@ namespace Question_8_Simple_Address_Book
 
 
             }
-            while (choice != 3);
+            while (choice != 5);
 
 
 
@@ -104,32 +111,10 @@ namespace Question_8_Simple_Address_Book
     class Addressbook
     {
 
-        private string Ename;
-        private long Ephone;
-        private string Email;
+       
+        Dictionary<long, string> AddressInput = new Dictionary<long, string>();
 
-        public string ename
-
-        {
-            get { return Ename; }
-            set { Ename = value; }
-        }
-
-        public long ephone
-        {
-            get { return Ephone; }
-            set { Ephone = value; }
-
-        }
-
-
-        public string email
-        {
-            get { return Email; }
-            set { Email = value; }
-
-
-        }
+       
 
         public Addressbook()
 
@@ -154,12 +139,12 @@ namespace Question_8_Simple_Address_Book
 
 
 
-        public void InsertInput()
+        public void InsertInput(Dictionary<long, string> AddressInput)
         {
 
           
-
-            Dictionary<long, string> AddressInput = new Dictionary<long, string>();
+            
+            
 
 
 
@@ -170,11 +155,16 @@ namespace Question_8_Simple_Address_Book
             try
             {
                 Console.WriteLine("Type your name");
-                ename = Console.ReadLine();
+                string Ename = Console.ReadLine();
                 Console.WriteLine("Type your phone number");
-                ephone = long.Parse(Console.ReadLine());
+                long Ephone = long.Parse(Console.ReadLine());
                 Console.WriteLine("Type down your email address");
-                email = Console.ReadLine();
+
+                string Email = Console.ReadLine();
+                AddressInput.Add(Ephone, $"Name:{Ename}, Email: {Email}");
+
+
+                Console.WriteLine("==USER EMAIL ADDRESS SUCCESSFULL ADDED==");
 
 
             }
@@ -184,21 +174,17 @@ namespace Question_8_Simple_Address_Book
                 Console.WriteLine($"The input you have entered is in an invalid input: {ex.Message}");
             }
 
-            AddressInput.Add(ephone, $"Name:{ename}, Email: {email}");
-
-
-            Console.WriteLine("==USER EMAIL ADDRESS SUCCESSFULL ADDED==");
-
+           
 
 
 
         }
-        public void Display(Dictionary<long, string> AddressInput,string path)
+        public void Display(Dictionary<long, string> AddressInput)
 
         {
-            int option = 0;
+            
             Console.WriteLine("Welcome to display menu");
-
+            int option = 0;
             do
             {
                 Console.WriteLine("Choose the following option");
@@ -206,6 +192,7 @@ namespace Question_8_Simple_Address_Book
                 Console.WriteLine("2.View specific email");
                 Console.WriteLine("3.Exit");
                 Console.WriteLine("Enter option down below");
+               
                 bool valid = int.TryParse(Console.ReadLine(), out  option);
 
 
@@ -224,18 +211,14 @@ namespace Question_8_Simple_Address_Book
                         }
                         break;
                     case 2:
-
-                        
-                        foreach (long Tkey in AddressInput.Keys)
-                        {
                             Console.WriteLine("Enter your phone number to view list");
                             long Tkeys = long.Parse(Console.ReadLine());
-                            if (ephone == Tkey )
+
+                            if (AddressInput.ContainsKey(Tkeys))
                             {
-                               
-                                Console.WriteLine($"User found:  { ename} : {email }");
-                            }
+                            Console.WriteLine($"Phone: {Tkeys}, Info: {AddressInput[Tkeys]}");
                         }
+                        
                         break;
                     case 3:
 
@@ -261,15 +244,7 @@ namespace Question_8_Simple_Address_Book
 
             
            
-            if (File.Exists(path))
-            {
-
-
-                string Content = $"Name:{ename}, Email: {email} , Phone Number: {ephone}\n";
-                File.AppendAllText(path, Content);
-
-
-            }
+     
 
 
 
@@ -282,24 +257,64 @@ namespace Question_8_Simple_Address_Book
 
             
             Console.WriteLine("Enter your phone number");
-            long Keys = long.Parse(Console.ReadLine());
-            Console.WriteLine("Enter the information you want to update into");
-            string Up = Console.ReadLine();
+            string Ename;
+            string Email;
 
-
-            foreach (long TKeys in AddressInput.Keys)
+            if (long.TryParse(Console.ReadLine(), out long Keys))
             {
-                if (ephone == Keys)
+                if (AddressInput.ContainsKey(Keys))
                 {
-
-                    AddressInput[ephone] = Up;
+                    Console.WriteLine("Enter the information you want to update into");
+                    Console.WriteLine();
+                    Console.WriteLine("Enter the update name you want to update into");
+                    Ename = Console.ReadLine();
+                    Console.WriteLine("Enter the update Email you want to update into");
+                    Email = Console.ReadLine();
+                    string Up = $"Name: {Ename}, Email: {Email}";
+                    AddressInput[Keys] = Up;
                     Console.WriteLine("==You have successfully updated information==");
-
-
+                }
+                else
+                {
+                    Console.WriteLine("Phone number not found in address book.");
                 }
             }
+            else
+            {
+                Console.WriteLine("Invalid phone number input.");
+            }
+            
 
            
+
+
+
+        }
+
+        public void RemoveEmail(Dictionary<long, string> AddressInput) 
+        {
+
+            Console.WriteLine("Enter your phone number:");
+    
+    if (long.TryParse(Console.ReadLine(), out long eKey))
+    {
+        if (AddressInput.ContainsKey(eKey))
+        {
+            AddressInput.Remove(eKey);
+            Console.WriteLine("Email removed successfully.");
+        }
+        else
+        {
+            Console.WriteLine("Phone number not found in address book.");
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid phone number input.");
+    }
+
+
+
 
 
 
