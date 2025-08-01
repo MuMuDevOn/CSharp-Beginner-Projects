@@ -15,7 +15,7 @@ namespace Question_8_Simple_Address_Book
 
 
 
-            string path = "C:\\Users\\mutsa\\OneDrive\\Documents\\C# beginning\\Question 8-Simple Address Book\\AddressBook.txt";
+            
 
             Addressbook addressbook = new Addressbook();
             Dictionary<long, string> AddressInput = new Dictionary<long, string>();
@@ -32,7 +32,7 @@ namespace Question_8_Simple_Address_Book
                 Console.WriteLine("3.Update information");
                 Console.WriteLine("4.Remove information");
                 Console.WriteLine("5.Exit");
-                Console.WriteLine("Type down infomation ");
+                Console.WriteLine("Enter down below your choice ");
 
                 bool valid = int.TryParse(Console.ReadLine(), out choice);
 
